@@ -1,0 +1,14 @@
+<!-- Create This File Named as 'index.html'
+Inside a folder named 'templates' -->
+<pre id="output"></pre>
+<script>
+var output = document.getElementById('output');
+
+var xhr = new XMLHttpRequest();
+xhr.open('GET', "{{ url_for('stream', strategy=strategy) }}");
+xhr.send();
+
+setInterval(function () {
+    output.textContent = xhr.responseText;
+}, 1000);
+</script>
