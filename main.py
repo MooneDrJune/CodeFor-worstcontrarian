@@ -4,11 +4,18 @@ from time import sleep
 from flask import Flask, render_template
 
 # Initiate All Startegies In Separate Processes Running In Parallel
-subprocess.Popen([sys.executable, "Strategy1.py", ">>", "Strategy1.log"])
-subprocess.Popen([sys.executable, "Strategy2.py", ">>", "Strategy2.log"])
-subprocess.Popen([sys.executable, "Strategy3.py", ">>", "Strategy3.log"])
-subprocess.Popen([sys.executable, "Strategy4.py", ">>", "Strategy4.log"])
-subprocess.Popen([sys.executable, "Strategy5.py", ">>", "Strategy5.log"])
+tuple(
+    subprocess.Popen(
+        [
+            sys.executable,
+            f"Strategy{No}.py",
+            ">>",
+            f"Strategy{No}.log",
+        ],
+        shell=True,
+    )  # noqa: E501
+    for No in range(1, 6)
+)
 
 app = Flask(__name__)
 
